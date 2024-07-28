@@ -13,15 +13,18 @@ export async function getCabins(): Promise<Cabin[]> {
     }
   }
 }
-// import supabase from "./supabase";
 
-// export async function getCabins() {
-//   const { data, error } = await supabase.from("cabins").select("*");
-
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Cabins could not be loaded");
-//   }
-
-//   return data;
-// }
+export async function deleteCabin(id: number): Promise<void> {
+  try {
+    const response = await axiosInstance.delete(`/cabins?id=eq.${id}`);
+    if (response.status !== 204) {
+      throw new Error("Error deleting cabin");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(`Error deleting cabin: ${error.message}`);
+    } else {
+      throw new Error("Unknown error deleting cabin");
+    }
+  }
+}

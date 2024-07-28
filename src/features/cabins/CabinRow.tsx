@@ -2,6 +2,13 @@ import styled from "styled-components";
 import { Cabin as CabinType } from "../../types/cabin.interface";
 import { formatCurrency } from "../../utils/helpers";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { deleteCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
 
 const TableRow = styled.div`
   display: grid;
@@ -41,13 +48,33 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
-type CabinRowProps = {
-  cabin: CabinType;
-};
 
-const CabinRow: React.FC<CabinRowProps> = ({ cabin }) => {
-  const { id, name, maxCapacity, regularPrice, discount, image, description } =
-    cabin;
+const CabinRow: React.FC<CabinType> = ({
+  id,
+  name,
+  maxCapacity,
+  regularPrice,
+  discount,
+  image,
+  description,
+}) => {
+  const queryClient = useQueryClient();
+
+  const { isLoading: isDeleting, mutate } = useMutation({
+    mutationFn: deleteCabin,
+    onSuccess: () => {
+      toast.success("Cabin successfuly deleted");
+      queryClient.invalidateQueries({
+        queryKey: ["cabins"],
+      });
+    },
+    onError: (err) => {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+    },
+  });
+
   return (
     <TableRow role="row">
       <Img src={image} />
@@ -66,7 +93,7 @@ const CabinRow: React.FC<CabinRowProps> = ({ cabin }) => {
         <button>
           <HiPencil />
         </button>
-        <button>
+        <button onClick={() => mutate(id)} disabled={isDeleting}>
           <HiTrash />
         </button>
       </div>
