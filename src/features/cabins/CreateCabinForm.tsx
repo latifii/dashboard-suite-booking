@@ -1,71 +1,68 @@
-import { Cabin as CabinType } from "../../types/cabin.interface";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 import Input from "../../ui/Input";
-import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
-import { createEditCabin } from "../../services/apiCabins";
+import { Cabin } from "../../types/cabin.interface";
 import FormRow from "../../pages/FormRow";
-
-type CustomError = {
-  message: string;
-};
+import Form from "../../ui/Form";
 
 type CreateCabinFormProps = {
-  cabinToEdit?: CabinType;
+  cabinToEdit?: Partial<Cabin>;
 };
 
-const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ cabinToEdit }) => {
-  const isEditSession = Boolean(cabinToEdit?.id);
-  console.log(isEditSession, cabinToEdit?.id);
+type FormData = Omit<Cabin, "id" | "created_at"> & { image: File | string };
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    getValues,
-    formState: { errors },
-  } = useForm<CabinType>({ defaultValues: cabinToEdit });
+const CreateCabinForm: React.FC<CreateCabinFormProps> = ({
+  cabinToEdit = {},
+}) => {
+  const { isCreating, createCabin } = useCreateCabin();
+  const { isEditing, editCabin } = useEditCabin();
+  const isWorking = isCreating || isEditing;
 
-  const queryClient = useQueryClient();
+  const { id: editId, ...editValues } = cabinToEdit;
+  const isEditSession = Boolean(editId);
 
-  const mutation = useMutation({
-    mutationFn: (data: { newCabinData: CabinType; id?: number }) =>
-      createEditCabin(data.newCabinData, data.id),
-    onSuccess: () => {
-      toast.success("Cabin successfully created/edited");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
-    },
-    onError: (err: CustomError) => {
-      toast.error(err.message);
-    },
-  });
+  const { register, handleSubmit, reset, getValues, formState } =
+    useForm<FormData>({
+      defaultValues: isEditSession ? editValues : {},
+    });
+  const { errors } = formState;
 
-  function onError(errors: unknown) {
-    console.log(errors);
-  }
-
-  const onSubmit: SubmitHandler<CabinType> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
-    const newCabinData = { ...data, image };
-    if (isEditSession) {
-      mutation.mutate({ newCabinData, id: cabinToEdit?.id });
+
+    if (isEditSession && editId) {
+      editCabin(
+        { newCabinData: { ...data, image }, id: editId },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        }
+      );
     } else {
-      mutation.mutate({ newCabinData });
+      createCabin(
+        { ...data, image },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        }
+      );
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)} type="modal">
+    <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
+          disabled={isWorking}
           {...register("name", {
             required: "This field is required",
           })}
@@ -76,9 +73,9 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ cabinToEdit }) => {
         <Input
           type="number"
           id="maxCapacity"
+          disabled={isWorking}
           {...register("maxCapacity", {
             required: "This field is required",
-            valueAsNumber: true,
             min: {
               value: 1,
               message: "Capacity should be at least 1",
@@ -91,9 +88,13 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ cabinToEdit }) => {
         <Input
           type="number"
           id="regularPrice"
+          disabled={isWorking}
           {...register("regularPrice", {
             required: "This field is required",
-            valueAsNumber: true,
+            min: {
+              value: 1,
+              message: "Regular price should be at least 1",
+            },
           })}
         />
       </FormRow>
@@ -102,18 +103,13 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ cabinToEdit }) => {
         <Input
           type="number"
           id="discount"
+          disabled={isWorking}
           defaultValue={0}
           {...register("discount", {
             required: "This field is required",
-            valueAsNumber: true,
-            validate: (value) => {
-              const regularPrice = getValues().regularPrice;
-
-              return (
-                value <= regularPrice ||
-                "Discount should be less than regular price"
-              );
-            },
+            validate: (value) =>
+              value <= getValues().regularPrice ||
+              "Discount should be less than regular price",
           })}
         />
       </FormRow>
@@ -125,6 +121,7 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ cabinToEdit }) => {
         <Textarea
           id="description"
           defaultValue=""
+          disabled={isWorking}
           {...register("description", {
             required: "This field is required",
           })}
@@ -146,8 +143,8 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ cabinToEdit }) => {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={mutation.isLoading}>
-          {isEditSession ? "Edit cabin" : "Add cabin"}
+        <Button disabled={isWorking}>
+          {isEditSession ? "Edit cabin" : "Create new cabin"}
         </Button>
       </FormRow>
     </Form>

@@ -5,7 +5,7 @@ import { uploadFile } from "./uploadFile";
 const API_URL = import.meta.env.VITE_API_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
-export async function getCabins(): Promise<Cabin[]> {
+export async function getCabinsApi(): Promise<Cabin[]> {
   try {
     const response = await axiosInstance.get<Cabin[]>(
       "/rest/v1/cabins?select=*"
@@ -20,7 +20,7 @@ export async function getCabins(): Promise<Cabin[]> {
   }
 }
 
-export async function deleteCabin(id: number): Promise<void> {
+export async function deleteCabinApi(id: number): Promise<void> {
   try {
     const response = await axiosInstance.delete(`/rest/v1/cabins?id=eq.${id}`);
     if (response.status !== 204) {
