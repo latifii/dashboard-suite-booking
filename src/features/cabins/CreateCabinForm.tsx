@@ -12,12 +12,14 @@ import Form from "../../ui/Form";
 
 type CreateCabinFormProps = {
   cabinToEdit?: Partial<Cabin>;
+  onCloseModal?: () => void;
 };
 
 type FormData = Omit<Cabin, "id" | "created_at"> & { image: File | string };
 
 const CreateCabinForm: React.FC<CreateCabinFormProps> = ({
   cabinToEdit = {},
+  onCloseModal,
 }) => {
   const { isCreating, createCabin } = useCreateCabin();
   const { isEditing, editCabin } = useEditCabin();
@@ -41,6 +43,7 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({
         {
           onSuccess: () => {
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -50,6 +53,7 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({
         {
           onSuccess: () => {
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -57,7 +61,10 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({
   };
 
   return (
-    <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      type={onCloseModal ? "modal" : "regular"}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -140,7 +147,11 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isWorking}>

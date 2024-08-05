@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 type FormType = {
-  type: "modal" | string;
+  type: "modal" | "regular";
 };
 const Form = styled.form<FormType>`
   ${(props) =>
-    props.type !== "modal" &&
+    props.type !== "regular" &&
     css`
       padding: 2.4rem 4rem;
 
