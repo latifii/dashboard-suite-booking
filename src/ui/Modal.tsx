@@ -8,6 +8,7 @@ import {
 } from "./types/modal.type";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -88,10 +89,11 @@ function Window({ children, name }: WindowProps) {
     throw new Error("Window must be used within a Modal provider.");
   }
   const { openName, close } = context;
+  const ref = useOutsideClick(close!);
   if (name !== openName) return null;
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
