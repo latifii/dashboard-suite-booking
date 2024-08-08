@@ -12,7 +12,7 @@ import Account from "../pages/Account";
 import Login from "../pages/Login";
 import Users from "../pages/Users";
 import PageNotFound from "../pages/PageNotFound";
-import AppLayout from "../ui/AppLayout";
+import AppLayout from "../pages/AppLayout";
 
 const router = createBrowserRouter([
   {
