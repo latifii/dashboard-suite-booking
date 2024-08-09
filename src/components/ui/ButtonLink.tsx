@@ -1,5 +1,5 @@
-// import classNames from "classnames";
-import { ButtonProps, ButtonShape } from "./types/button.types";
+import { Link } from "react-router-dom";
+import { ButtonLinkProps, ButtonShape } from "./types/button.types";
 import { Size } from "../../types/size.type";
 import classNames from "classnames";
 
@@ -16,38 +16,31 @@ const shapeClasses: Record<ButtonShape, string> = {
   square: "btn-square",
   default: "",
 };
-const Button: React.FC<ButtonProps> = ({
-  variant = "primary",
+
+const ButtonLink: React.FC<ButtonLinkProps> = ({
+  variant = "ghost",
   size = "normal",
   shape = "default",
   className,
-  isLoading = false,
-  isDisabled = false,
-  loadingText = "ارسال...",
-  loadingType = "spinner",
-  isOutline = false,
-  type = "button",
   isLink = false,
+  to = "/",
   direction = "center",
   children,
-  ...rest
 }) => {
   const classes = classNames(
     "btn",
     { [`btn-${variant}`]: variant },
     { [`btn-${direction}`]: direction },
     { [`${sizeClasses[size]}`]: size },
-    { "btn-outline": isOutline },
     { "btn-link": isLink },
     { [`${shapeClasses[shape]}`]: shape },
-    { "pointer-events-none opacity-70": isLoading },
     className,
   );
   return (
-    <button type={type} disabled={isDisabled} className={classes} {...rest}>
-      {isLoading ? loadingText : children}
-    </button>
+    <Link to={to} className={classes}>
+      {children}
+    </Link>
   );
 };
 
-export default Button;
+export default ButtonLink;

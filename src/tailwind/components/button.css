@@ -1,6 +1,6 @@
 .btn {
-  @apply no-underline gap-2 h-12 px-7  border inline-flex  cursor-pointer select-none;
-  @apply items-center justify-center border-transparent text-center transition duration-100 ease-in-out rounded-lg;
+  @apply inline-flex h-12 cursor-pointer select-none gap-2 border px-7 no-underline;
+  @apply items-center justify-center rounded-lg border-transparent text-center transition duration-100 ease-in-out;
   &:active:hover,
   &:active:focus {
     transform: scale(0.97);
@@ -8,7 +8,7 @@
 
   /* default btn */
   & {
-    @apply dark:border-base-200 dark:bg-base-200 dark:text-base-content  dark:outline-base-content;
+    @apply dark:border-base-200 dark:bg-base-200 dark:text-base-content dark:outline-base-content;
     @media (hover: hover) {
       &:hover {
         @apply dark:border-base-300 dark:bg-base-300;
@@ -17,151 +17,154 @@
   }
   /* brand colors */
   &-primary {
-    @apply dark:border-primary dark:bg-primary dark:text-primary-content dark:outline-primary;
+    @apply border-primary bg-primary text-primary-content outline-primary dark:border-primary dark:bg-primary dark:text-primary-content dark:outline-primary;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-primary-focus dark:bg-primary-focus;
+        @apply border-primary-focus bg-primary-focus dark:border-primary-focus dark:bg-primary-focus;
       }
     }
   }
   &-secondary {
-    @apply dark:border-secondary dark:bg-secondary dark:text-secondary-content dark:outline-secondary;
+    @apply border-secondary bg-secondary text-secondary-content outline-secondary dark:border-secondary dark:bg-secondary dark:text-secondary-content dark:outline-secondary;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-secondary-focus dark:bg-secondary-focus;
+        @apply border-secondary-focus bg-secondary-focus dark:border-secondary-focus dark:bg-secondary-focus;
       }
     }
   }
   &-accent {
-    @apply dark:border-accent dark:bg-accent dark:text-accent-content dark:outline-accent;
+    @apply border-accent bg-accent text-accent-content outline-accent dark:border-accent dark:bg-accent dark:text-accent-content dark:outline-accent;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-accent-focus dark:bg-accent-focus;
+        @apply border-accent-focus bg-accent-focus dark:border-accent-focus dark:bg-accent-focus;
       }
     }
   }
   &-neutral {
-    @apply dark:border-neutral dark:bg-neutral dark:text-base-content dark:outline-neutral;
+    @apply border-neutral bg-neutral text-base-content outline-neutral dark:border-neutral dark:bg-neutral dark:text-base-content dark:outline-neutral;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-neutral-focus dark:bg-neutral-focus;
+        @apply border-neutral-focus bg-neutral-focus dark:border-neutral-focus dark:bg-neutral-focus;
       }
     }
   }
 
   /* btn with state colors */
   &-info {
-    @apply dark:border-info dark:bg-info dark:text-info-content dark:outline-info;
+    @apply border-info bg-info text-info-content outline-info dark:border-info dark:bg-info dark:text-info-content dark:outline-info;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-info dark:bg-info;
+        @apply border-info bg-info dark:border-info dark:bg-info;
       }
     }
   }
   &-success {
-    @apply dark:border-success dark:bg-success dark:text-base-100 dark:outline-success;
+    @apply border-success bg-success text-base-100 outline-success dark:border-success dark:bg-success dark:text-base-100 dark:outline-success;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-success dark:bg-success;
+        @apply border-success bg-success dark:border-success dark:bg-success;
       }
     }
   }
   &-warning {
-    @apply dark:border-warning dark:bg-warning dark:text-base-100 dark:outline-warning;
+    @apply border-warning bg-warning text-base-100 outline-warning dark:border-warning dark:bg-warning dark:text-base-100 dark:outline-warning;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-warning dark:bg-warning;
+        @apply border-warning bg-warning dark:border-warning dark:bg-warning;
       }
     }
   }
   &-error {
-    @apply dark:border-error dark:bg-error dark:text-base-100 dark:outline-error;
+    @apply border-error bg-error text-base-100 outline-error dark:border-error dark:bg-error dark:text-base-100 dark:outline-error;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-error dark:bg-error;
+        @apply border-error bg-error dark:border-error dark:bg-error;
       }
     }
   }
 
+  &-gradient {
+    @apply border-0 bg-gradient-to-l from-gradient-first to-gradient-second text-white outline-gradient-first dark:bg-gradient-to-l dark:text-white;
+  }
   /* btn variants */
   &-ghost {
-    @apply border border-transparent bg-transparent text-current  outline-current;
+    @apply border border-transparent bg-transparent text-current outline-current dark:border-transparent dark:bg-transparent dark:text-white dark:outline-current;
     @media (hover: hover) {
       &:hover {
-        @apply border-opacity-0 dark:bg-base-content bg-opacity-20;
+        @apply border-opacity-0 bg-base-content bg-opacity-20 dark:bg-base-content;
       }
     }
   }
   &-link {
-    @apply border-transparent bg-transparent dark:text-primary   outline-none h-auto px-1;
+    @apply h-auto border-transparent bg-transparent px-1 text-primary outline-none dark:border-transparent dark:bg-transparent dark:text-primary;
     @media (hover: hover) {
       &:hover {
-        @apply border-transparent bg-transparent underline;
+        @apply border-transparent bg-transparent underline dark:border-transparent dark:bg-transparent dark:underline;
       }
     }
   }
 
   /* outline */
   &-outline {
-    @apply border-current dark:bg-transparent dark:text-base-content;
+    @apply border-current bg-transparent text-base-content dark:bg-transparent dark:text-base-content;
     @media (hover: hover) {
       &:hover {
-        @apply dark:border-base-content dark:bg-base-content dark:text-base-100;
+        @apply border-base-content bg-base-content text-base-100 dark:border-base-content dark:bg-base-content dark:text-base-100;
       }
     }
     &.btn-primary {
-      @apply dark:text-primary;
+      @apply text-primary dark:text-primary;
       @media (hover: hover) {
         &:hover {
-          @apply dark:border-primary-focus dark:bg-primary-focus dark:text-primary-content;
+          @apply border-primary-focus bg-primary-focus text-primary-content dark:border-primary-focus dark:bg-primary-focus dark:text-primary-content;
         }
       }
     }
     &.btn-secondary {
-      @apply dark:text-secondary;
+      @apply text-secondary dark:text-secondary;
       @media (hover: hover) {
         &:hover {
-          @apply dark:border-secondary-focus dark:bg-secondary-focus dark:text-secondary-content;
+          @apply border-secondary-focus bg-secondary-focus text-secondary-content dark:border-secondary-focus dark:bg-secondary-focus dark:text-secondary-content;
         }
       }
     }
     &.btn-accent {
-      @apply dark:text-accent;
+      @apply text-accent dark:text-accent;
       @media (hover: hover) {
         &:hover {
-          @apply dark:border-accent-focus dark:bg-accent-focus dark:text-accent-content;
+          @apply border-accent-focus bg-accent-focus text-accent-content dark:border-accent-focus dark:bg-accent-focus dark:text-accent-content;
         }
       }
     }
     &.btn-success {
-      @apply dark:text-success;
+      @apply text-success dark:text-success;
       @media (hover: hover) {
         &:hover {
-          @apply dark:border-success dark:bg-success dark:text-base-100;
+          @apply border-success bg-success text-base-100 dark:border-success dark:bg-success dark:text-base-100;
         }
       }
     }
     &.btn-info {
-      @apply dark:text-info;
+      @apply text-info dark:text-info;
       @media (hover: hover) {
         &:hover {
-          @apply dark:border-info dark:bg-info dark:text-base-100;
+          @apply border-info bg-info text-base-100 dark:border-info dark:bg-info dark:text-base-100;
         }
       }
     }
     &.btn-warning {
-      @apply dark:text-warning;
+      @apply text-warning dark:text-warning;
       @media (hover: hover) {
         &:hover {
-          @apply dark:border-warning dark:bg-warning dark:text-base-100;
+          @apply border-warning bg-warning text-base-100 dark:border-warning dark:bg-warning dark:text-base-100;
         }
       }
     }
     &.btn-error {
-      @apply dark:text-error;
+      @apply text-error dark:text-error;
       @media (hover: hover) {
         &:hover {
-          @apply dark:border-error dark:bg-error dark:text-base-100;
+          @apply border-error bg-error text-base-100 dark:border-error dark:bg-error dark:text-base-100;
         }
       }
     }
@@ -170,12 +173,12 @@
   /* disabled */
   &[disabled],
   &:disabled {
-    @apply pointer-events-none border-opacity-0 dark:bg-neutral dark:bg-opacity-20 dark:text-base-content dark:text-opacity-20;
+    @apply pointer-events-none border-opacity-0 bg-base-content text-base-25 text-opacity-50 dark:bg-base-25 dark:text-base-content;
   }
   @media (hover: hover) {
     &[disabled]:hover,
     &:disabled:hover {
-      @apply border-opacity-0 dark:bg-neutral dark:bg-opacity-20 dark:text-base-content dark:text-opacity-20;
+      @apply border-opacity-0 bg-base-content bg-opacity-20 text-base-content text-opacity-20 dark:bg-base-content dark:bg-opacity-20 dark:text-base-content dark:text-opacity-20;
     }
   }
 
@@ -215,5 +218,17 @@
     &:where(.btn-lg) {
       @apply h-16 w-16 p-0;
     }
+  }
+
+  &-right {
+    @apply justify-start text-right;
+  }
+
+  &-center {
+    @apply justify-center text-center;
+  }
+
+  &-left {
+    @apply justify-end text-left;
   }
 }

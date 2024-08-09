@@ -1,10 +1,22 @@
 import { ComponentBase } from "../../types/component-base.type";
+import defaultImg from "../../assets/images/avatar-default.webp";
+import Button from "./Button";
+type AvatarProps = Pick<ComponentBase, "className"> & { img?: string };
 
-type AvatarProps = Pick<ComponentBase, "className">;
-
-const Avatar: React.FC<AvatarProps> = ({ className }) => {
+const Avatar: React.FC<AvatarProps> = ({ className, img }) => {
   return (
-    <div className={`h-8 w-8 bg-gray-400 rounded-full ${className}`}>AV</div>
+    <Button
+      size="small"
+      shape="square"
+      variant="ghost"
+      className="overflow-hidden"
+    >
+      <img
+        src={img ? img : defaultImg}
+        alt="avatat"
+        className="h-full w-full"
+      />
+    </Button>
   );
 };
 
