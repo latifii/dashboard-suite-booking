@@ -1,14 +1,19 @@
-import React from "react";
+import { TextareaHTMLAttributes, forwardRef } from "react";
 
-type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-const Textarea: React.FC<TextareaProps> = (props) => {
-  return (
-    <textarea
-      className="h-32 w-full rounded border p-3 shadow-sm focus:border-primary focus:outline-none focus:ring focus:ring-primary/40 dark:bg-base-25"
-      {...props}
-    />
-  );
-};
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  (props, ref) => {
+    return (
+      <textarea
+        className="rounded-md border px-3 py-2 shadow focus:outline-none focus:ring focus:ring-primary/40 dark:bg-base-25"
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+
+Textarea.displayName = "Textarea";
 
 export default Textarea;

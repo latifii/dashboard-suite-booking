@@ -1,7 +1,7 @@
 import supabase from "../configs/supabase";
 import { Cabin } from "../types/cabin.interface";
+import { SUPABASE_URL } from "../utils/instances";
 import { uploadFile } from "./uploadFile";
-const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getCabins(): Promise<Cabin[]> {
   const { data, error } = await supabase.from("cabins").select("*");
@@ -61,62 +61,67 @@ export async function getCabins(): Promise<Cabin[]> {
 //   return data as Cabin;
 // }
 
-// export async function deleteCabin(id: number): Promise<Cabin[]> {
-//   const { data, error } = await supabase.from("cabins").delete().eq("id", id);
+export async function deleteCabin(id: number): Promise<Cabin[]> {
+  const { data, error } = await supabase.from("cabins").delete().eq("id", id);
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Cabin could not be deleted");
-//   }
+  if (error) {
+    console.error(error);
+    throw new Error("Cabin could not be deleted");
+  }
 
-//   return data as Cabin[];
-// }
+  return data as Cabin[];
+}
 
-// export async function createEditCabin(
-//   newCabin: Omit<Cabin, "id" | "created_at"> & { image: File | string },
-//   id?: number
-// ): Promise<Cabin> {
-//   const hasImagePath =
-//     typeof newCabin.image === "string" && newCabin.image?.startsWith(API_URL);
+export async function createEditCabin(
+  newCabin: Omit<Cabin, "id" | "created_at"> & { image: File | string },
+  id?: number,
+): Promise<Cabin> {
+  const hasImagePath =
+    typeof newCabin.image === "string" &&
+    newCabin.image?.startsWith(SUPABASE_URL);
+  console.log("hasImagePath", hasImagePath);
 
-//   const imageName = `${Math.random()}-${
-//     (newCabin.image as File).name
-//   }`.replaceAll("/", "");
-//   const imagePath = hasImagePath
-//     ? newCabin.image
-//     : `${API_URL}/storage/v1/object/public/cabin-images/${imageName}`;
+  const imageName = `${Math.random()}-${
+    (newCabin.image as File).name
+  }`.replaceAll("/", "");
 
-//   // 1. Create/edit cabin
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   let query: any = supabase.from("cabins");
+  console.log("imageName", imageName);
 
-//   // A) CREATE
-//   if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
+  const imagePath = hasImagePath
+    ? newCabin.image
+    : `${SUPABASE_URL}/storage/v1/object/public/cabin-images/${imageName}`;
 
-//   // B) EDIT
-//   if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
+  // 1. Create/edit cabin
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let query: any = supabase.from("cabins");
 
-//   const { data, error } = await query.select().single();
+  // A) CREATE
+  if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Cabin could not be created");
-//   }
+  // B) EDIT
+  if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
 
-//   // 2. Upload image
-//   if (hasImagePath) return data;
+  const { data, error } = await query.select().single();
 
-//   const file = newCabin.image as File;
-//   const filePath = imageName;
-//   const fileUrl = await uploadFile(file, filePath);
+  if (error) {
+    console.error(error);
+    throw new Error("ارور* سوییت نمی تواند اضافه بشود. ");
+  }
 
-//   // 3. Delete the cabin IF there was an error uploading image
-//   if (!fileUrl) {
-//     await supabase.from("cabins").delete().eq("id", data.id);
-//     throw new Error(
-//       "Cabin image could not be uploaded and the cabin was not created"
-//     );
-//   }
+  // 2. Upload image
+  if (hasImagePath) return data;
 
-//   return data;
-// }
+  const file = newCabin.image as File;
+  const filePath = imageName;
+  const fileUrl = await uploadFile(file, filePath);
+
+  // 3. Delete the cabin IF there was an error uploading image
+  if (!fileUrl) {
+    await supabase.from("cabins").delete().eq("id", data.id);
+    throw new Error(
+      "Cabin image could not be uploaded and the cabin was not created",
+    );
+  }
+
+  return data;
+}
