@@ -15,11 +15,13 @@
     --color-warning: theme("colors.warning");
     --color-error: theme("colors.error");
     --color-word: theme("colors.word");
+    --color-white: theme("colors.white");
     --color-gradient-first: theme("colors.gradient-first");
     --color-gradient-second: theme("colors.gradient-second");
   }
+
   body {
-    @apply text-word;
+    @apply text-word dark:text-white;
   }
 }
 

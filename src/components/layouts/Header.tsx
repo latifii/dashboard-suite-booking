@@ -3,6 +3,7 @@ import { SidebarProps } from "./types/sidebar.types";
 import Avatar from "../ui/Avatar";
 import ThemeSwicher from "../ui/ThemeSwicher";
 import Button from "../ui/Button";
+import NavCollapse from "../ui/NavCollapse";
 
 type HeaderProps = Pick<SidebarProps, "setIsOpen">;
 const Header: React.FC<HeaderProps> = ({ setIsOpen }) => {
@@ -13,11 +14,7 @@ const Header: React.FC<HeaderProps> = ({ setIsOpen }) => {
       </div>
       <div className="flex items-center justify-end gap-2">
         <ThemeSwicher />
-        <Avatar />
-        <p>حامد لطیفی</p>
-        <Button size="small" shape="square" variant="ghost">
-          <HiMiniArrowLeftStartOnRectangle className="text-xl" />
-        </Button>
+        <NavCollapse name="حامد لطیفی" />
       </div>
     </div>
   );

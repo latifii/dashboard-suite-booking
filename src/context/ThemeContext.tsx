@@ -14,7 +14,6 @@ type ThemeContextType = {
 };
 
 const itemLocalStorage = localStorage.getItem("theme");
-console.log(itemLocalStorage, typeof itemLocalStorage);
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
@@ -30,9 +29,9 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(
     function () {
       if (theme === "light") {
-        document.body.classList.remove("dark");
+        document.documentElement.classList.remove("dark");
       } else {
-        document.body.classList.add("dark");
+        document.documentElement.classList.add("dark");
       }
       localStorage.setItem("theme", theme);
     },

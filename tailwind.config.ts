@@ -41,7 +41,7 @@ export const tailwindColors: ColorObject = {
   neutral: "#2a323c",
   "neutral-content": generateForegroundColorFrom("#FFFFFF"),
   "neutral-focus": generateDarkenColorFrom("#2a323c", 0.03),
-  word: "#2f2f2f",
+  word: "#4c4c4c",
   "base-10": "#EDEFF3",
   "base-25": "#353d47",
   "base-50": "#2a323c",
@@ -50,6 +50,9 @@ export const tailwindColors: ColorObject = {
   "base-200": "#191e24",
   "base-300": "#15191e",
   "base-content": "#A6ADBB",
+  muted: "#353d47",
+  "muted-50": "#D1D5DB",
+  "muted-100": "#9e9e9e",
   info: "#3abff8",
   "info-content": generateForegroundColorFrom("#3abff8"),
   success: "#36d399",
@@ -67,10 +70,21 @@ const config: Config = {
 
   theme: {
     colors: tailwindColors,
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "0.75rem",
+        // lg: "2rem",
+      },
+    },
     fontFamily: {
       sans: ["Iransans", "Helvetica", "Arial", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      borderColor: {
+        DEFAULT: "#D1D5DB",
+      },
+    },
   },
   darkMode: "class",
   plugins: [],

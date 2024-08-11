@@ -59,12 +59,12 @@ function MainNav() {
                 variant={isSelect}
               >
                 <span
-                  className={`text-xl ${pathname === item.to ? "" : "opacity-70"}`}
+                  className={`text-xl ${pathname === item.to ? "" : "opacity-90"}`}
                 >
                   {item.icon}
                 </span>
                 <span
-                  className={` ${pathname === item.to ? "" : "opacity-70"}`}
+                  className={` ${pathname === item.to ? "" : "opacity-90"}`}
                 >
                   {item.name}
                 </span>

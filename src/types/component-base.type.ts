@@ -1,5 +1,5 @@
 import { Size } from "./size.type";
-import { Variant } from "./types/variant.type";
+import { Variant } from "./variant.type";
 
 export type ComponentBase = {
   variant?: Variant;
