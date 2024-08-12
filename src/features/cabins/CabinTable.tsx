@@ -7,7 +7,7 @@ const headerData = ["عکس", "نام سوییت", "ظرفیت", "قیمت", "ت
 
 const CabinTable: React.FC = () => {
   const { cabins, error, isLoading } = useCabins();
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Spinner variant="primary" />;
   return (
     <Table headerData={headerData}>
       {cabins?.map((cabin, i) => (
