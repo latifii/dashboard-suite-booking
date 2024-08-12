@@ -1,7 +1,7 @@
 import Heading from "../components/ui/Heading";
 import Row from "../components/ui/Row";
+import AddCabin from "../features/cabins/AddCabin";
 import CabinTable from "../features/cabins/CabinTable";
-import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
 function Cabins() {
   return (
@@ -12,7 +12,7 @@ function Cabins() {
       </Row>
       <Row type="vertical" className="mb-10">
         <CabinTable />
-        <CreateCabinForm />
+        <AddCabin />
       </Row>
     </>
   );

@@ -9,7 +9,10 @@ import { Cabin } from "../../types/cabin.interface";
 import { useCreateCabin } from "./useCreateCabin";
 type FormData = Omit<Cabin, "id" | "created_at"> & { image: File | string };
 
-const CreateCabinForm: React.FC = () => {
+type CreateCabinFormProps = {
+  onCloseModal?: () => void;
+};
+const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ onCloseModal }) => {
   const { createCabin, isCreating } = useCreateCabin();
 
   const {
@@ -28,13 +31,14 @@ const CreateCabinForm: React.FC = () => {
       {
         onSuccess: (data) => {
           reset();
+          onCloseModal?.();
         },
       },
     );
   };
 
   return (
-    <Form type="regular" onSubmit={handleSubmit(onHandleSubmit)}>
+    <Form type="modal" onSubmit={handleSubmit(onHandleSubmit)}>
       <FormRow
         label="نام سوییت"
         error={
