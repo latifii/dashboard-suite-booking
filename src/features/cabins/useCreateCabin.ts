@@ -1,9 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
-type CustomError = {
-  message: string;
-};
+import { CustomErrorType } from "../../types/error.types";
 
 export function useCreateCabin() {
   const queryClient = useQueryClient();
@@ -14,7 +12,7 @@ export function useCreateCabin() {
       toast.success("سویت شما اضافه شد.");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
     },
-    onError: (err) => toast.error((err as CustomError).message),
+    onError: (err) => toast.error((err as CustomErrorType).message),
   });
 
   return { createCabin, isCreating };

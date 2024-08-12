@@ -16,13 +16,14 @@ export async function getCabins(): Promise<Cabin[]> {
 
 export async function deleteCabin(id: number): Promise<Cabin[]> {
   const { data, error } = await supabase.from("cabins").delete().eq("id", id);
+  console.log("data", data, "error", error, !data);
 
   if (error) {
     console.error(error);
-    throw new Error("Cabin could not be deleted");
+    throw new Error("حذف سوییت امکان پذیر نیست");
   }
 
-  return data as Cabin[];
+  return data as unknown as Cabin[];
 }
 
 export async function createEditCabin(
@@ -32,13 +33,10 @@ export async function createEditCabin(
   const hasImagePath =
     typeof newCabin.image === "string" &&
     newCabin.image?.startsWith(SUPABASE_URL);
-  console.log("hasImagePath", hasImagePath);
 
   const imageName = `${Math.random()}-${
     (newCabin.image as File).name
   }`.replaceAll("/", "");
-
-  console.log("imageName", imageName);
 
   const imagePath = hasImagePath
     ? newCabin.image
@@ -73,6 +71,56 @@ export async function createEditCabin(
     await supabase.from("cabins").delete().eq("id", data.id);
     throw new Error(
       "Cabin image could not be uploaded and the cabin was not created",
+    );
+  }
+
+  return data;
+}
+
+export async function editCabin(
+  updatedCabin: Omit<Cabin, "id" | "created_at"> & { image: File | string },
+  id: number,
+): Promise<Cabin> {
+  console.log(updatedCabin);
+  console.log(id);
+
+  const hasImagePath =
+    typeof updatedCabin.image === "string" &&
+    updatedCabin.image?.startsWith(SUPABASE_URL);
+
+  const imageName = `${Math.random()}-${
+    (updatedCabin.image as File).name
+  }`.replaceAll("/", "");
+
+  const imagePath = hasImagePath
+    ? updatedCabin.image
+    : `${SUPABASE_URL}/storage/v1/object/public/cabin-images/${imageName}`;
+
+  // ویرایش کابین
+  const query = supabase
+    .from("cabins")
+    .update({ ...updatedCabin, image: imagePath })
+    .eq("id", id);
+
+  const { data, error } = await query.select().single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("ارور* سوییت نمی تواند ویرایش شود.");
+  }
+
+  // آپلود تصویر اگر مسیر تصویر از قبل موجود نیست
+  if (hasImagePath) return data;
+
+  const file = updatedCabin.image as File;
+  const filePath = imageName;
+  const fileUrl = await uploadFile(file, filePath);
+
+  // حذف کابین اگر آپلود تصویر با خطا مواجه شد
+  if (!fileUrl) {
+    await supabase.from("cabins").delete().eq("id", data.id);
+    throw new Error(
+      "Cabin image could not be uploaded and the cabin was not updated",
     );
   }
 
