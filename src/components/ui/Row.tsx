@@ -13,7 +13,7 @@ const Row: React.FC<RowProps> = ({
 }) => {
   return (
     <div
-      className={`flex ${type === "horizontal" ? "items-center justify-between" : "flex-col gap-2"} ${className}`}
+      className={`flex ${type === "horizontal" ? "justify-between" : "flex-col gap-2"} ${className}`}
     >
       {children}
     </div>

@@ -3,7 +3,7 @@ import SortBy from "../../components/ui/SortBy";
 
 const CabinFlter: React.FC = () => {
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex flex-col items-start gap-5 lg:flex-row lg:items-center">
       <Filter
         filterField="discount"
         options={[
