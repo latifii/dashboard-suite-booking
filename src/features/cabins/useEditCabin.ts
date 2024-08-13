@@ -1,12 +1,7 @@
-import {
-  MutationFunction,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-// import { editCabinApi } from "../../services/apiCabins";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { CustomErrorType } from "../../types/error.types";
-import { editCabin } from "../../services/apiCabins";
+import { createEditCabin } from "../../services/apiCabins";
 import { Cabin } from "../../types/cabin.interface";
 
 type EditCabinMuateType = {
@@ -18,7 +13,7 @@ export function useEditCabin() {
 
   const { mutate: editCabinMuate, isLoading: isEditing } = useMutation({
     mutationFn: ({ updatedCabin, id }: EditCabinMuateType) =>
-      editCabin(updatedCabin, id),
+      createEditCabin(updatedCabin, id),
     onSuccess: () => {
       toast.success("سویت با موفقیت ویرایش شد .");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });

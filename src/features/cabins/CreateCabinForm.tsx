@@ -25,7 +25,7 @@ const CreateCabinForm: React.FC<CreateCabinFormProps> = ({ onCloseModal }) => {
 
   const onHandleSubmit: SubmitHandler<FormData> = (data) => {
     const image = data.image[0];
-    console.log("img", image);
+
     createCabin(
       { ...data, image: image },
       {

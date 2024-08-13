@@ -77,52 +77,52 @@ export async function createEditCabin(
   return data;
 }
 
-export async function editCabin(
-  updatedCabin: Omit<Cabin, "id" | "created_at"> & { image: File | string },
-  id: number,
-): Promise<Cabin> {
-  console.log(updatedCabin);
-  console.log(id);
+// export async function editCabin(
+//   updatedCabin: Omit<Cabin, "id" | "created_at"> & { image: File | string },
+//   id: number,
+// ): Promise<Cabin> {
+//   console.log(updatedCabin);
+//   console.log(id);
 
-  const hasImagePath =
-    typeof updatedCabin.image === "string" &&
-    updatedCabin.image?.startsWith(SUPABASE_URL);
+//   const hasImagePath =
+//     typeof updatedCabin.image === "string" &&
+//     updatedCabin.image?.startsWith(SUPABASE_URL);
 
-  const imageName = `${Math.random()}-${
-    (updatedCabin.image as File).name
-  }`.replaceAll("/", "");
+//   const imageName = `${Math.random()}-${
+//     (updatedCabin.image as File).name
+//   }`.replaceAll("/", "");
 
-  const imagePath = hasImagePath
-    ? updatedCabin.image
-    : `${SUPABASE_URL}/storage/v1/object/public/cabin-images/${imageName}`;
+//   const imagePath = hasImagePath
+//     ? updatedCabin.image
+//     : `${SUPABASE_URL}/storage/v1/object/public/cabin-images/${imageName}`;
 
-  // ویرایش کابین
-  const query = supabase
-    .from("cabins")
-    .update({ ...updatedCabin, image: imagePath })
-    .eq("id", id);
+//   // ویرایش کابین
+//   const query = supabase
+//     .from("cabins")
+//     .update({ ...updatedCabin, image: imagePath })
+//     .eq("id", id);
 
-  const { data, error } = await query.select().single();
+//   const { data, error } = await query.select().single();
 
-  if (error) {
-    console.error(error);
-    throw new Error("ارور* سوییت نمی تواند ویرایش شود.");
-  }
+//   if (error) {
+//     console.error(error);
+//     throw new Error("ارور* سوییت نمی تواند ویرایش شود.");
+//   }
 
-  // آپلود تصویر اگر مسیر تصویر از قبل موجود نیست
-  if (hasImagePath) return data;
+//   // آپلود تصویر اگر مسیر تصویر از قبل موجود نیست
+//   if (hasImagePath) return data;
 
-  const file = updatedCabin.image as File;
-  const filePath = imageName;
-  const fileUrl = await uploadFile(file, filePath);
+//   const file = updatedCabin.image as File;
+//   const filePath = imageName;
+//   const fileUrl = await uploadFile(file, filePath);
 
-  // حذف کابین اگر آپلود تصویر با خطا مواجه شد
-  if (!fileUrl) {
-    await supabase.from("cabins").delete().eq("id", data.id);
-    throw new Error(
-      "Cabin image could not be uploaded and the cabin was not updated",
-    );
-  }
+//   // حذف کابین اگر آپلود تصویر با خطا مواجه شد
+//   if (!fileUrl) {
+//     await supabase.from("cabins").delete().eq("id", data.id);
+//     throw new Error(
+//       "Cabin image could not be uploaded and the cabin was not updated",
+//     );
+//   }
 
-  return data;
-}
+//   return data;
+// }
