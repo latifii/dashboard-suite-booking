@@ -1,7 +1,7 @@
 import Filter from "../../components/ui/Filter";
 import SortBy from "../../components/ui/SortBy";
 
-const CabinFlter: React.FC = () => {
+const CabinFilter: React.FC = () => {
   return (
     <div className="flex flex-col items-start gap-5 lg:flex-row lg:items-center">
       <Filter
@@ -26,4 +26,4 @@ const CabinFlter: React.FC = () => {
   );
 };
 
-export default CabinFlter;
+export default CabinFilter;

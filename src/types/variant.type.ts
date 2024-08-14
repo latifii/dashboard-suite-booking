@@ -8,4 +8,5 @@ export type Variant =
   | "success"
   | "warning"
   | "error"
+  | "word"
   | "gradient";

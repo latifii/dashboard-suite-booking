@@ -15,19 +15,31 @@ export interface Booking {
   status: string;
   totalPrice: number;
 }
+export interface BookingShow {
+  id: number;
+  created_at: string;
+  startDate: string;
+  endDate: string;
+  numNights: number;
+  numGuests: number;
+  status: string;
+  totalPrice: number;
+  cabins: { name: string };
+  guests: { fullName: string; email: string };
+}
 
-// cabinId: 38;
-// cabinPrice: 1750;
-// created_at: "2024-07-18T11:08:17.384+00:00";
-// endDate: "2024-08-14T00:00:00";
-// extrasPrice: 105;
-// guestId: 6;
-// hasBreakfast: true;
-// id: 2;
-// isPaid: false;
-// numGuests: 1;
-// numNights: 7;
-// observations: "I have a gluten allergy and would like to request a gluten-free breakfast.";
-// startDate: "2024-08-07T00:00:00";
-// status: "unconfirmed";
-// totalPrice: 1855;
+type FilterBooking = {
+  value: string;
+  field: string;
+};
+
+type SortByBooking = {
+  field: string;
+  direction: string;
+};
+
+export type GetBookingArg = {
+  filter?: FilterBooking | null;
+  sortBy?: SortByBooking;
+  page?: number;
+};
