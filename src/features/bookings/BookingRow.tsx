@@ -1,8 +1,9 @@
-import { HiDocumentDuplicate } from "react-icons/hi2";
+import { HiDocumentDuplicate, HiEye } from "react-icons/hi2";
 import Button from "../../components/ui/Button";
 import { BookingShow } from "../../types/booking.interface";
 import Tag from "../../components/ui/Tag";
 import { Variant } from "../../types/variant.type";
+import ButtonLink from "../../components/ui/ButtonLink";
 
 type Color = Extract<Variant, "success" | "info" | "error">;
 
@@ -53,6 +54,9 @@ const BookingRow: React.FC<BookingRowProps> = ({
         <Button size="tiny" variant="ghost">
           <HiDocumentDuplicate className="text-lg" />
         </Button>
+        <ButtonLink to={`/bookings/${bookingId}`} size="tiny" variant="ghost">
+          <HiEye className="text-lg" />
+        </ButtonLink>
       </td>
     </>
   );

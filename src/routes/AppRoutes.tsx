@@ -13,6 +13,7 @@ import Login from "../pages/Login";
 import Users from "../pages/Users";
 import PageNotFound from "../pages/PageNotFound";
 import AppLayout from "../pages/AppLayout";
+import Booking from "../pages/Booking";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,12 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate replace to="dashboard" /> },
       { path: "dashboard", element: <Dashboard /> },
-      { path: "bookings", element: <Bookings /> },
+      {
+        path: "bookings",
+        element: <Bookings />,
+        // children: [{ path: "bookings/:bookingId", element: <Booking /> }],
+      },
+      { path: "bookings/:bookingId", element: <Booking /> },
       { path: "cabins", element: <Cabins /> },
       { path: "users", element: <Users /> },
       { path: "settings", element: <Settings /> },

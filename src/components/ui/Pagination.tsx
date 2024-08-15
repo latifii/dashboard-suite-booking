@@ -32,10 +32,10 @@ const Pagination: React.FC<PaginationProps> = ({ count }) => {
   return (
     <div className="flex w-full items-center justify-between">
       <p className="ml-2 text-sm font-normal">
-        نمایش{" "}
+        نمایش
         <span className="px-2 font-semibold">
           {(currentPage - 1) * PAGE_SIZE + 1}
-        </span>{" "}
+        </span>
         تا
         <span className="px-2 font-semibold">
           {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
