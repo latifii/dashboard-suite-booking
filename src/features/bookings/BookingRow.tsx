@@ -1,22 +1,16 @@
 import { HiDocumentDuplicate, HiEye } from "react-icons/hi2";
 import Button from "../../components/ui/Button";
-import { BookingShow } from "../../types/booking.interface";
+import {
+  BookingShow,
+  ColorStatus,
+  StatusKey,
+} from "../../types/booking.interface";
 import Tag from "../../components/ui/Tag";
-import { Variant } from "../../types/variant.type";
 import ButtonLink from "../../components/ui/ButtonLink";
-
-type Color = Extract<Variant, "success" | "info" | "error">;
+import { statusMap } from "../../utils/convertPersian";
 
 type BookingRowProps = {
   booking: BookingShow;
-};
-
-type StatusKey = "checked-in" | "checked-out" | "unconfirmed";
-
-const statusMap: Record<StatusKey, { value: string; color: Color }> = {
-  "checked-in": { value: "تایید شده", color: "success" },
-  "checked-out": { value: "بررسی", color: "info" },
-  unconfirmed: { value: "تایید نشده", color: "error" },
 };
 
 const BookingRow: React.FC<BookingRowProps> = ({

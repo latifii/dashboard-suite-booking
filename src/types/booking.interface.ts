@@ -1,3 +1,7 @@
+import { Cabin } from "./cabin.interface";
+import { Guests } from "./guests.types";
+import { Variant } from "./variant.type";
+
 export interface Booking {
   id: number;
   cabinId: number;
@@ -15,6 +19,7 @@ export interface Booking {
   status: string;
   totalPrice: number;
 }
+
 export interface BookingShow {
   id: number;
   created_at: string;
@@ -28,6 +33,30 @@ export interface BookingShow {
   guests: { fullName: string; email: string };
 }
 
+export interface BookingBox
+  extends Omit<Booking, "id" | "cabinId" | "guestId" | "status"> {
+  guests: Omit<Guests, "id" | "created_at">;
+  cabin: Pick<Cabin, "name">;
+}
+
+export type StatusKey = "checked-in" | "checked-out" | "unconfirmed";
+
+export type ColorStatus = Extract<Variant, "success" | "info" | "error">;
+// export interface BookingShow {
+//   created_at: string;
+//   startDate: string;
+//   endDate: string;
+//   numNights: number;
+//   numGuests: number;
+//   cabinPrice: string;
+//   extrasPrice: string;
+//   totalPrice: number;
+//   hasBreakfast: boolean;
+//   observations: string;
+//   isPaid: boolean;
+//   // guests: { fullName: guestName, email, country, countryFlag, nationalID },
+//   // cabins: { name: cabinName },
+// }
 type FilterBooking = {
   value: string;
   field: string;

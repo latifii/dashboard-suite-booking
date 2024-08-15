@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <Bookings />,
         // children: [{ path: "bookings/:bookingId", element: <Booking /> }],
       },
-      { path: "bookings/:bookingId", element: <Booking /> },
+      { path: "bookings/:bookingId", element: <Booking key={Math.random()} /> },
       { path: "cabins", element: <Cabins /> },
       { path: "users", element: <Users /> },
       { path: "settings", element: <Settings /> },

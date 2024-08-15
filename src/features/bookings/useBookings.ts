@@ -25,7 +25,7 @@ export function useBookings() {
   // QUREY
   const { data: { data: bookings, count } = {}, isLoading } = useQuery({
     queryFn: () => getBookings({ filter, sortBy, page }),
-    queryKey: ["booking", filter, sortBy, page],
+    queryKey: ["bookings", filter, sortBy, page],
   });
 
   const validCount = count ?? 0;
@@ -34,14 +34,14 @@ export function useBookings() {
   if (page < pageCount) {
     queryClient.prefetchQuery({
       queryFn: () => getBookings({ filter, sortBy, page: page + 1 }),
-      queryKey: ["booking", filter, sortBy, page + 1],
+      queryKey: ["bookings", filter, sortBy, page + 1],
     });
   }
 
   if (page > 1) {
     queryClient.prefetchQuery({
       queryFn: () => getBookings({ filter, sortBy, page: page - 1 }),
-      queryKey: ["booking", filter, sortBy, page - 1],
+      queryKey: ["bookings", filter, sortBy, page - 1],
     });
   }
 

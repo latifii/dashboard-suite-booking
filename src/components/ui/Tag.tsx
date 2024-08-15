@@ -7,6 +7,7 @@ import classNames from "classnames";
 type TagProps = {
   children: ReactNode;
   color: string;
+  className?: string;
 };
 
 // const colorClass: Record<Color, string> = {
@@ -21,10 +22,13 @@ type TagProps = {
 //   success: "text-success",
 // };
 
-const Tag: React.FC<TagProps> = ({ children, color }) => {
-  const classes = classNames({
-    [`bg-${color}`]: color,
-  });
+const Tag: React.FC<TagProps> = ({ children, color, className }) => {
+  const classes = classNames(
+    {
+      [`bg-${color}`]: color,
+    },
+    className,
+  );
   return (
     <div
       className={`${classes} rounded-full bg-opacity-50 p-1 text-center text-sm`}
