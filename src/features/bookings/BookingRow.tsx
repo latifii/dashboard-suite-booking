@@ -1,4 +1,8 @@
-import { HiDocumentDuplicate, HiEye } from "react-icons/hi2";
+import {
+  HiArrowDownOnSquare,
+  HiDocumentDuplicate,
+  HiEye,
+} from "react-icons/hi2";
 import Button from "../../components/ui/Button";
 import {
   BookingShow,
@@ -45,12 +49,14 @@ const BookingRow: React.FC<BookingRowProps> = ({
       </td>
       <td className="border px-4 py-2">{totalPrice}</td>
       <td className="border px-4 py-2">
-        <Button size="tiny" variant="ghost">
-          <HiDocumentDuplicate className="text-lg" />
-        </Button>
         <ButtonLink to={`/bookings/${bookingId}`} size="tiny" variant="ghost">
           <HiEye className="text-lg" />
         </ButtonLink>
+        {status === "unconfirmed" && (
+          <ButtonLink to={`/checkin/${bookingId}`} size="tiny" variant="ghost">
+            <HiArrowDownOnSquare className="text-lg" />
+          </ButtonLink>
+        )}
       </td>
     </>
   );

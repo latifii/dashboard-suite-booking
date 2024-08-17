@@ -14,6 +14,7 @@ import Users from "../pages/Users";
 import PageNotFound from "../pages/PageNotFound";
 import AppLayout from "../pages/AppLayout";
 import Booking from "../pages/Booking";
+import CheckIn from "../pages/CheckIn";
 
 const router = createBrowserRouter([
   {
@@ -25,9 +26,9 @@ const router = createBrowserRouter([
       {
         path: "bookings",
         element: <Bookings />,
-        // children: [{ path: "bookings/:bookingId", element: <Booking /> }],
       },
-      { path: "bookings/:bookingId", element: <Booking key={Math.random()} /> },
+      { path: "bookings/:bookingId", element: <Booking /> },
+      { path: "checkin/:bookingId", element: <CheckIn /> },
       { path: "cabins", element: <Cabins /> },
       { path: "users", element: <Users /> },
       { path: "settings", element: <Settings /> },

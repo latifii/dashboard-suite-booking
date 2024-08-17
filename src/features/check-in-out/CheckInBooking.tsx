@@ -3,24 +3,27 @@ import Heading from "../../components/ui/Heading";
 import Row from "../../components/ui/Row";
 import Tag from "../../components/ui/Tag";
 import { useMoveBack } from "../../hooks/useMoveBack";
-import { useBooking } from "./useBooking";
+// import { useBooking } from "./useBooking";
 import Spinner from "../../components/ui/Spinner";
 import Button from "../../components/ui/Button";
-import BookingBox from "./BookingBox";
+// import BookingBox from "./BookingBox";
 import {
   BookingBox as BookingBoxType,
   StatusKey,
 } from "../../types/booking.interface";
 import { statusMap } from "../../utils/convertPersian";
-import ButtonLink from "../../components/ui/ButtonLink";
+import { useLocation } from "react-router-dom";
+import { useBooking } from "../bookings/useBooking";
 
-const BookingDetail: React.FC = () => {
+const CheckInBooking: React.FC = () => {
   const { booking, isLoading } = useBooking();
   const moveBack = useMoveBack();
+  const location = useLocation();
+  console.log(location);
 
   if (isLoading) return <Spinner />;
 
-  const { id: bookingId, status } = booking;
+  const { cabinId, status } = booking;
 
   const bookingBox: BookingBoxType = {
     created_at: booking.created_at,
@@ -47,10 +50,10 @@ const BookingDetail: React.FC = () => {
   };
   const statusPersian = statusMap[status as StatusKey];
   return (
-    <>
+    <div key={location.key}>
       <Row className="my-5">
         <div className="flex items-center gap-4">
-          <Heading as="h2">رزرو #{bookingId}</Heading>
+          <Heading as="h2">رزرو #{cabinId}</Heading>
           <Tag className="px-5" color={statusPersian.color}>
             {statusPersian.value}
           </Tag>
@@ -60,21 +63,9 @@ const BookingDetail: React.FC = () => {
           برگشت
         </Button>
       </Row>
-
-      <BookingBox booking={bookingBox} />
-
-      <div className="my-5 flex items-center gap-5">
-        <Button variant="ghost" onClick={moveBack}>
-          برگشت
-        </Button>
-        {status === "unconfirmed" && (
-          <ButtonLink variant="primary" to={`/checkin/${bookingId}`}>
-            بررسی فاکتور #{bookingId}
-          </ButtonLink>
-        )}
-      </div>
-    </>
+      {/* <BookingBox booking={bookingBox} /> */}
+    </div>
   );
 };
 
-export default BookingDetail;
+export default CheckInBooking;

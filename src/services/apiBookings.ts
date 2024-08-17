@@ -1,5 +1,6 @@
 import supabase from "../configs/supabase";
 import { BookingShow, GetBookingArg } from "../types/booking.interface";
+import { ObjCheckinUpdate } from "../types/checkin.interface";
 import { PAGE_SIZE } from "../utils/instances";
 
 type GetBookingsResult = {
@@ -58,5 +59,20 @@ export async function getBooking(id: string) {
     throw new Error("Booking not found");
   }
 
+  return data;
+}
+
+export async function updateBooking(id: number, obj: ObjCheckinUpdate) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(obj)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
   return data;
 }
