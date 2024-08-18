@@ -3,6 +3,7 @@ import Button from "./Button";
 import Avatar from "./Avatar";
 import { HiMiniChevronDown, HiMiniChevronUp } from "react-icons/hi2";
 import ButtonLink from "./ButtonLink";
+import { useLogout } from "../../features/authentication/useLogout";
 
 type NavCollapseProps = {
   name?: string;
@@ -12,6 +13,7 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ name }) => {
   const [toggle, setToggle] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  const { isLogouting, logout } = useLogout();
   function handleClickOutside(e: MouseEvent | TouchEvent) {
     if (ref.current && !ref.current.contains(e.target as Node)) {
       setToggle(false);
@@ -48,14 +50,16 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ name }) => {
           >
             تنظیمات
           </ButtonLink>
-          <ButtonLink
+          <Button
             size="small"
             shape="full"
+            variant="ghost"
             direction="right"
-            to="/dashboard"
+            disabled={isLogouting}
+            onClick={() => logout()}
           >
             خروج
-          </ButtonLink>
+          </Button>
         </div>
       )}
     </div>

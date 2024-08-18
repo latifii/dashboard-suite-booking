@@ -17,6 +17,7 @@ const variantClasses: Record<Variant, string> = {
   info: "border-info",
   neutral: "border-neutral",
   warning: "border-warning",
+  word: "border-warning",
 };
 
 const Spinner: React.FC<SpinnerProps> = ({ variant = "primary" }) => {

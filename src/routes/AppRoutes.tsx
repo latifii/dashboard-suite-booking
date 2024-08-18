@@ -15,11 +15,16 @@ import PageNotFound from "../pages/PageNotFound";
 import AppLayout from "../pages/AppLayout";
 import Booking from "../pages/Booking";
 import CheckIn from "../pages/CheckIn";
+import ProtectedRoute from "../components/ui/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, element: <Navigate replace to="dashboard" /> },
       { path: "dashboard", element: <Dashboard /> },
