@@ -8,8 +8,8 @@ const BookingFilter: React.FC = () => {
         filterField="status"
         options={[
           { label: "همه", value: "all" },
-          { label: "تایید شده", value: "checked-in" },
-          { label: "بررسی", value: "checked-out" },
+          { label: "ورود مهمان", value: "checked-in" },
+          { label: "خروج مهمان", value: "checked-out" },
           { label: "تایید نشده", value: "unconfirmed" },
         ]}
       />

@@ -15,12 +15,16 @@ import BookingBox from "../bookings/BookingBox";
 import { useEffect, useState } from "react";
 import CheckBox from "../../components/ui/CheckBox";
 import { useCheckin } from "./useCheckin";
+import { useSettings } from "../settings/useSettings";
+import { formatCurrency } from "../../utils/helpers";
 
 const CheckBooking: React.FC = () => {
   const [confirmPaid, setConfirmPaid] = useState<boolean>(false);
+  const [addBreakfast, setAddBreakfast] = useState<boolean>(false);
 
   const { booking, isLoading } = useBooking();
   const { checkin, isCheckingIn } = useCheckin();
+  const { settings: settingData, isLoading: isSetting } = useSettings();
   const moveBack = useMoveBack();
 
   useEffect(
@@ -32,10 +36,9 @@ const CheckBooking: React.FC = () => {
     [booking],
   );
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || isSetting) return <Spinner />;
 
   const { id: bookingId, status } = booking;
-  console.log(bookingId);
 
   const bookingBox: BookingBoxType = {
     created_at: booking.created_at,
@@ -60,10 +63,26 @@ const CheckBooking: React.FC = () => {
       name: booking.cabins.name,
     },
   };
+
+  const breakfastPrice =
+    settingData?.breakfastPrice * bookingBox.numGuests * bookingBox.numNights;
+
   const statusPersian = statusMap[status as StatusKey];
 
-  function handleChekin(id: number) {
-    checkin(id);
+  function handleChekin() {
+    if (!confirmPaid) return;
+    if (addBreakfast) {
+      checkin({
+        bookingId,
+        obj: {
+          hasBreakfast: true,
+          extrasPrice: breakfastPrice,
+          totalPrice: bookingBox.totalPrice + breakfastPrice,
+        },
+      });
+    } else {
+      checkin({ bookingId, obj: {} });
+    }
   }
   return (
     <>
@@ -81,6 +100,20 @@ const CheckBooking: React.FC = () => {
       </Row>
 
       <BookingBox booking={bookingBox} />
+      {!bookingBox.hasBreakfast && (
+        <CheckBox
+          className="my-5"
+          id="addBreakfast"
+          checked={addBreakfast}
+          onChange={() => {
+            setAddBreakfast(!addBreakfast);
+            setConfirmPaid(false);
+          }}
+        >
+          آیا میخواهید صبحانه را با {formatCurrency(breakfastPrice)} دلار اضافه
+          کنید؟
+        </CheckBox>
+      )}
 
       <CheckBox
         className="my-5"
@@ -90,7 +123,13 @@ const CheckBooking: React.FC = () => {
         disabled={confirmPaid || isCheckingIn}
       >
         من تأیید می کنم که {bookingBox.guests.fullName} کل مبلغ را پرداخت کرده
-        است
+        است. مبلغ{" "}
+        {addBreakfast
+          ? formatCurrency(breakfastPrice + bookingBox.cabinPrice)
+          : formatCurrency(bookingBox.totalPrice)}
+        {addBreakfast &&
+          `(${formatCurrency(bookingBox.cabinPrice)} +
+             ${formatCurrency(breakfastPrice)})`}
       </CheckBox>
 
       <div className="my-5 flex items-center gap-5">
@@ -101,7 +140,7 @@ const CheckBooking: React.FC = () => {
         <Button
           variant="primary"
           isDisabled={!confirmPaid || isCheckingIn}
-          onClick={() => handleChekin(bookingId)}
+          onClick={handleChekin}
         >
           تایید فاکتور #{bookingId}
         </Button>

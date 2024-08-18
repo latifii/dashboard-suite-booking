@@ -4,7 +4,7 @@ export const statusMap: Record<
   StatusKey,
   { value: string; color: ColorStatus }
 > = {
-  "checked-in": { value: "تایید شده", color: "success" },
-  "checked-out": { value: "بررسی", color: "info" },
+  "checked-in": { value: "ورود مهمان", color: "info" },
+  "checked-out": { value: "خروج مهمان", color: "success" },
   unconfirmed: { value: "تایید نشده", color: "error" },
 };

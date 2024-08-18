@@ -13,9 +13,14 @@ import {
 } from "../../types/booking.interface";
 import { statusMap } from "../../utils/convertPersian";
 import ButtonLink from "../../components/ui/ButtonLink";
+import { useDeleteBooking } from "./useDeleteBooking";
+import Modal from "../../components/ui/Modal";
+import ConfirmDelete from "../../components/ui/ConfirmDelete";
+import { deleteBooking } from "../../services/apiBookings";
 
 const BookingDetail: React.FC = () => {
   const { booking, isLoading } = useBooking();
+  const { isDeletingBooking, mutateBookingDelete } = useDeleteBooking();
   const moveBack = useMoveBack();
 
   if (isLoading) return <Spinner />;
@@ -67,11 +72,35 @@ const BookingDetail: React.FC = () => {
         <Button variant="ghost" onClick={moveBack}>
           برگشت
         </Button>
+
         {status === "unconfirmed" && (
           <ButtonLink variant="primary" to={`/checkin/${bookingId}`}>
             بررسی فاکتور #{bookingId}
           </ButtonLink>
         )}
+        {status === "checked-in" && (
+          <ButtonLink variant="success" to={`/`}>
+            تایید فاکتور
+          </ButtonLink>
+        )}
+        <Modal>
+          <Modal.Open opens="delete-booking">
+            <Button variant="error" onClick={moveBack}>
+              حذف
+            </Button>
+          </Modal.Open>
+          <Modal.Window name="delete-booking">
+            <ConfirmDelete
+              resourceName="رزرو"
+              disabled={isDeletingBooking}
+              onConfirm={() =>
+                mutateBookingDelete(bookingId, {
+                  onSettled: () => moveBack(),
+                })
+              }
+            />
+          </Modal.Window>
+        </Modal>
       </div>
     </>
   );

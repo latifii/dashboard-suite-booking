@@ -1,6 +1,6 @@
 import supabase from "../configs/supabase";
+import { ObjCheckinUpdate } from "../types/checkin.types";
 import { BookingShow, GetBookingArg } from "../types/booking.interface";
-import { ObjCheckinUpdate } from "../types/checkin.interface";
 import { PAGE_SIZE } from "../utils/instances";
 
 type GetBookingsResult = {
@@ -73,6 +73,17 @@ export async function updateBooking(id: number, obj: ObjCheckinUpdate) {
   if (error) {
     console.error(error);
     throw new Error("Booking could not be updated");
+  }
+  return data;
+}
+
+export async function deleteBooking(id: number) {
+  // REMEMBER RLS POLICIES
+  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+
+  if (error) {
+    console.error(error);
+    throw new Error("مشکلی در حذف رزرو رخ داده است.");
   }
   return data;
 }
