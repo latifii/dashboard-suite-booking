@@ -3,8 +3,8 @@ import { AsTag, HeadingProps } from "./types/Heading.types";
 const headingClasses: Record<AsTag, string> = {
   h1: "text-3xl font-semibold",
   h2: "text-2xl font-semibold",
-  h3: "text-3xl font-medium",
-  h4: "text-3xl font-semibold text-center",
+  h3: "text-xl font-medium",
+  h4: "text-lg font-semibold text-center",
 };
 
 const Heading: React.FC<HeadingProps> = ({
