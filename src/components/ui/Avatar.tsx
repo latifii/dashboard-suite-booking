@@ -1,4 +1,4 @@
-import defaultImg from "../../assets/images/avatar-default.webp";
+import defaultImg from "../../assets/images/default-user.jpg";
 type AvatarProps = { img?: string };
 
 const Avatar: React.FC<AvatarProps> = ({ img }) => {

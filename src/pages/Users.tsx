@@ -1,5 +1,15 @@
+import Heading from "../components/ui/Heading";
+import SignupForm from "../features/authentication/SignupForm";
+
 function NewUsers() {
-  return <p>create new users</p>;
+  return (
+    <>
+      <Heading className="my-8" as="h2">
+        ایجاد کاربر جدید
+      </Heading>
+      <SignupForm />
+    </>
+  );
 }
 
 export default NewUsers;

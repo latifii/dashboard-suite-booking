@@ -10,10 +10,9 @@ export function useLogin() {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }: AuthLogin) =>
       loginApi({ email, password }),
-    onSuccess: () => {
-      console.log("onSuccess");
+    onSuccess: (user) => {
       toast.success("به سایت گرین بوم خوش آمدی");
-      queryClient.invalidateQueries(["user"]);
+      queryClient.setQueryData(["user"], user.user);
       navigate("/dashboard");
     },
     onError: (err) => {

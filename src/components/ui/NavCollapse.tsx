@@ -4,14 +4,15 @@ import Avatar from "./Avatar";
 import { HiMiniChevronDown, HiMiniChevronUp } from "react-icons/hi2";
 import ButtonLink from "./ButtonLink";
 import { useLogout } from "../../features/authentication/useLogout";
+import { useUser } from "../../features/authentication/useUser";
 
-type NavCollapseProps = {
-  name?: string;
-};
-
-const NavCollapse: React.FC<NavCollapseProps> = ({ name }) => {
+const NavCollapse: React.FC = () => {
   const [toggle, setToggle] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { user } = useUser();
+
+  const avatar = user?.user_metadata?.avatar;
+  const fullName = user?.user_metadata?.fullName;
 
   const { isLogouting, logout } = useLogout();
   function handleClickOutside(e: MouseEvent | TouchEvent) {
@@ -32,14 +33,14 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ name }) => {
   return (
     <div className="relative" ref={ref}>
       <Button variant="ghost" onClick={() => setToggle(!toggle)}>
-        <Avatar />
-        <span>{name}</span>
+        <Avatar img={avatar} />
+        <span>{fullName}</span>
         {toggle ? <HiMiniChevronUp /> : <HiMiniChevronDown />}
       </Button>
 
       {toggle && (
         <div className="absolute -right-2 top-full mt-3 h-auto w-52 rounded border border-base-10 bg-white px-1 py-3 shadow dark:border-base-25 dark:bg-base-75">
-          <ButtonLink size="small" shape="full" direction="right" to="/users">
+          <ButtonLink size="small" shape="full" direction="right" to="/account">
             حساب کاربری
           </ButtonLink>
           <ButtonLink

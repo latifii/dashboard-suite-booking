@@ -1,8 +1,8 @@
-import { HiBars3, HiMiniArrowLeftStartOnRectangle } from "react-icons/hi2";
+import { HiBars3 } from "react-icons/hi2";
 import { SidebarProps } from "./types/sidebar.types";
-import Avatar from "../ui/Avatar";
+
 import ThemeSwicher from "../ui/ThemeSwicher";
-import Button from "../ui/Button";
+
 import NavCollapse from "../ui/NavCollapse";
 
 type HeaderProps = Pick<SidebarProps, "setIsOpen">;
@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ setIsOpen }) => {
       </div>
       <div className="flex items-center justify-end gap-2">
         <ThemeSwicher />
-        <NavCollapse name="حامد لطیفی" />
+        <NavCollapse />
       </div>
     </div>
   );
