@@ -1,5 +1,7 @@
 import Spinner from "../../components/ui/Spinner";
 import { useCabins } from "../cabins/useCabins";
+import DurationChart from "./DurationChart";
+import SalesChart from "./SalesChart";
 import Stats from "./Stats";
 import { useRecentBookings } from "./useRecentBookings";
 import { useRecentStays } from "./useRecentStays";
@@ -24,6 +26,9 @@ const DashboardLayout: React.FC = () => {
         confirmedStays={confirmedStays || []}
         cabinCount={cabins?.length || 0}
       />
+
+      <DurationChart confirmedStays={confirmedStays || []} />
+      <SalesChart bookings={bookings || []} numDays={numDays} />
     </div>
   );
 };

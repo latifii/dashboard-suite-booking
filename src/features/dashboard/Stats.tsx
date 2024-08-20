@@ -55,7 +55,7 @@ const Stats: React.FC<StatsProps> = ({
         value={checkins}
       />
       <Stat
-        title="ظریب سفارش"
+        title="ضریب سفارش"
         variant="warning"
         icon={<HiOutlineBriefcase />}
         value={Math.round(occupation * 100) + "%"}
