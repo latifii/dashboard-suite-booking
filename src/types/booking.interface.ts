@@ -42,21 +42,7 @@ export interface BookingBox
 export type StatusKey = "checked-in" | "checked-out" | "unconfirmed";
 
 export type ColorStatus = Extract<Variant, "success" | "info" | "error">;
-// export interface BookingShow {
-//   created_at: string;
-//   startDate: string;
-//   endDate: string;
-//   numNights: number;
-//   numGuests: number;
-//   cabinPrice: string;
-//   extrasPrice: string;
-//   totalPrice: number;
-//   hasBreakfast: boolean;
-//   observations: string;
-//   isPaid: boolean;
-//   // guests: { fullName: guestName, email, country, countryFlag, nationalID },
-//   // cabins: { name: cabinName },
-// }
+
 type FilterBooking = {
   value: string;
   field: string;

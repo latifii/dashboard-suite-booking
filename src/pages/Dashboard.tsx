@@ -1,76 +1,17 @@
+import Heading from "../components/ui/Heading";
+import Row from "../components/ui/Row";
+import DashboardFilter from "../features/dashboard/DashboardFilter";
+import DashboardLayout from "../features/dashboard/DashboardLayout";
+
 function Dashboard() {
   return (
-    <p>
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-      Reference site about Lorem Ipsum, giving information on its origins, as
-      well as a random Lipsum generator. Reference site about Lorem Ipsum,
-      giving information on its origins, as well as a random Lipsum generator.
-    </p>
+    <>
+      <Row type="horizontal" className="my-8">
+        <Heading as="h2">داشبورد</Heading>
+        <DashboardFilter />
+      </Row>
+      <DashboardLayout />
+    </>
   );
 }
 
