@@ -4,7 +4,7 @@ import { differenceInDays } from "date-fns/fp";
 // We want to make this function work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (
   dateStr1: string | Date,
-  dateStr2: string | Date
+  dateStr2: string | Date,
 ): number =>
   differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
 
@@ -28,6 +28,7 @@ export const getToday = function (options: { end?: boolean } = {}): string {
 };
 
 export const formatCurrency = (value: number): string =>
-  new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
-    value
-  );
+  new Intl.NumberFormat("fa-IR", { style: "currency", currency: "IRR" })
+    .format(value)
+    .replace("ریال", "")
+    .trim() + " ریال";

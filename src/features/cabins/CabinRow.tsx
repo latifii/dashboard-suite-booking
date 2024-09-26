@@ -6,6 +6,7 @@ import ConfirmDelete from "../../components/ui/ConfirmDelete";
 import { useDeleteCabin } from "./useDeleteCabin";
 import EditCabinFrom from "./EditCabinFrom";
 import { useCreateCabin } from "./useCreateCabin";
+import { formatCurrency } from "../../utils/helpers";
 
 type BodyData = Cabin;
 
@@ -28,10 +29,12 @@ const CabinRow: React.FC<BodyData> = (props) => {
           className="w-100 h-12 rounded-md object-cover"
         />
       </td>
-      <td className="border px-4 py-2">{name}</td>
+      <td className="persian-number border px-4 py-2">{name}</td>
       <td className="border px-4 py-2">{maxCapacity}</td>
-      <td className="border px-4 py-2">{regularPrice}</td>
-      <td className="border px-4 py-2">{discount}</td>
+      <td className="border px-4 py-2">{formatCurrency(regularPrice)}</td>
+      <td className="border px-4 py-2">
+        {discount > 0 ? discount + "%" : discount}
+      </td>
       <td className="w-40 max-w-xs whitespace-nowrap border px-4 py-2">
         <Modal>
           <Modal.Open opens="remove-cabin">

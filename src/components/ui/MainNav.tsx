@@ -4,6 +4,7 @@ import {
   HiOutlineHome,
   HiOutlineHomeModern,
   HiOutlineUsers,
+  HiOutlineWallet,
 } from "react-icons/hi2";
 
 import ButtonLink from "./ButtonLink";
@@ -30,9 +31,15 @@ const navData = [
   },
   {
     id: 4,
-    name: "کاربران",
+    name: "ایجاد کاربر",
     to: "/users",
     icon: <HiOutlineUsers />,
+  },
+  {
+    id: 6,
+    name: "تراکنش ها",
+    to: "/",
+    icon: <HiOutlineWallet />,
   },
   {
     id: 5,
@@ -47,7 +54,7 @@ function MainNav() {
 
   return (
     <>
-      <ul>
+      <ul className="my-7">
         {navData.map((item) => {
           const isSelect = pathname === item.to ? "gradient" : "ghost";
           return (

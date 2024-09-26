@@ -13,6 +13,8 @@ import { useCheckout } from "../check-in-out/useCheckout";
 import Modal from "../../components/ui/Modal";
 import ConfirmDelete from "../../components/ui/ConfirmDelete";
 import { useDeleteBooking } from "./useDeleteBooking";
+import { formatCurrency } from "../../utils/helpers";
+import { toLocalDateString } from "../../utils/persianDate";
 
 type BookingRowProps = {
   booking: BookingShow;
@@ -35,6 +37,7 @@ const BookingRow: React.FC<BookingRowProps> = ({
   const statusPersian = statusMap[status as StatusKey];
   const { checkout, isCheckOuting } = useCheckout();
   const { isDeletingBooking, mutateBookingDelete } = useDeleteBooking();
+
   return (
     <>
       <td className="border px-4 py-2 font-bold">{cabinName}</td>
@@ -43,13 +46,13 @@ const BookingRow: React.FC<BookingRowProps> = ({
         <span className="text-sm font-thin">{email}</span>
       </td>
       <td className="border px-4 py-2">
-        <span className="block font-bold">{startDate}</span>
-        <span className="text-sm font-thin">{endDate}</span>
+        <span className="block font-bold">{toLocalDateString(startDate)}</span>
+        <span className="text-sm font-thin">{toLocalDateString(endDate)}</span>
       </td>
       <td className="border px-4 py-2">
         <Tag color={statusPersian.color}>{statusPersian.value}</Tag>
       </td>
-      <td className="border px-4 py-2">{totalPrice}</td>
+      <td className="border px-4 py-2">{formatCurrency(totalPrice)}</td>
       <td className="border px-4 py-2">
         <ButtonLink to={`/bookings/${bookingId}`} size="tiny" variant="ghost">
           <HiEye className="text-lg" />

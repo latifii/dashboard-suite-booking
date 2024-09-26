@@ -78,7 +78,7 @@ const config: Config = {
       },
     },
     fontFamily: {
-      sans: ["Iransans", "Helvetica", "Arial", "sans-serif"],
+      sans: ["Vazir", "Helvetica", "Arial", "sans-serif"],
     },
     extend: {
       borderColor: {

@@ -12,6 +12,7 @@ import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 import Heading from "../../components/ui/Heading";
 import { useTheme } from "../../context/ThemeContext";
 import { Booking } from "../../types/booking.interface";
+import { toLocalDateString } from "../../utils/persianDate";
 
 type SalesChartProps = {
   bookings: Pick<Booking, "created_at" | "extrasPrice" | "totalPrice">[];
@@ -52,8 +53,8 @@ const SalesChart: React.FC<SalesChartProps> = ({ bookings, numDays }) => {
   return (
     <div className="col-span-full rounded-lg border bg-white p-5 shadow dark:bg-base-100">
       <Heading as="h2">
-        فروش از تاریخ {format(allDates.at(0)!, "MMM dd yyyy")} &mdash;
-        {format(allDates.at(-1)!, "MMM dd yyyy")}
+        فروش از تاریخ {toLocalDateString(allDates.at(0)!.toString())} &mdash;
+        {toLocalDateString(allDates.at(-1)!.toString())}
       </Heading>
 
       <ResponsiveContainer height={300} width="100%">

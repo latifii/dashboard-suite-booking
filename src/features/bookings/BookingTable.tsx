@@ -7,6 +7,7 @@ import { useBookings } from "./useBookings";
 
 const BookingTable: React.FC = () => {
   const { bookings, isLoading, count } = useBookings();
+  console.log(bookings);
 
   const headerData = ["نام سوییت", "نام مهمان", "تاریخ", "وضعیت", "مبلغ", ""];
 
