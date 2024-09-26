@@ -73,10 +73,6 @@ const EditCabinFrom: React.FC<EditCabinFormProps> = ({
           disabled={isEditing}
           {...register("name", {
             required: "پر کردن این فیلد الزامی است",
-            maxLength: {
-              value: 10,
-              message: "نام بیشتر از 10  کاراکتر مجاز نیست",
-            },
           })}
         />
       </FormRow>
